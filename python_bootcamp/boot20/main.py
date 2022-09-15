@@ -1,22 +1,31 @@
-from turtle import Turtle, Screen
-from random import randint
+from turtle import Turtle, Screen, color
+from random import randint, choice
 from time import sleep
-from snake import Snake, snake_move
+from snake import Snake
+from food import Food
+from frame import create_frame
 
 screen = Screen()
-screen.setup(width=600, height=600)
-screen.bgcolor("black")
+screen.screensize(canvwidth=600, canvheight=600, bg="black")
 screen.title("The Snake Game")
 screen.tracer(0)
+create_frame(600)
+screen.listen()
 
+snake = Snake(snake_length=3)
+food = Food()
 
-game_on = True
-while game_on:
-    screen.update()
-    sleep(0.1)
-    
-	snake__move()
-    snake[0].forward(20)
-    snake[0].right(90)
+foof = True
+while foof:
+    bite = food.food_element()
+    game_on = True
+    while game_on:
+        screen.update()
+        sleep(0.1)
+        snake.snake_head.forward(20)
+        snake.snake_move_body()
+        snake.snake_continue()
+        snake.keys(screen_obj = screen)
+        snake.snake_eat(bite)
 
 screen.exitonclick()
