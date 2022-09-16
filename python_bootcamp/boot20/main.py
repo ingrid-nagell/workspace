@@ -3,29 +3,39 @@ from random import randint, choice
 from time import sleep
 from snake import Snake
 from food import Food
-from frame import create_frame
+from frame import Canvas
 
-screen = Screen()
-screen.screensize(canvwidth=600, canvheight=600, bg="black")
-screen.title("The Snake Game")
-screen.tracer(0)
-create_frame(600)
-screen.listen()
+# Screen options:
+canvas_size = 300
+canvas = Canvas(screen_size=canvas_size)
+screen = canvas.create_screen()
+canvas.create_frame()
 
-snake = Snake(snake_length=3)
-food = Food()
+# Create a snake object of initial length = 3
+snake = Snake(snake_length=3, speed="slow")
+print(snake.snake_length)
+
+food = Food(screen_size=canvas_size)
+print(food)
+#Lager en ny turtle for hver iterasjon. Men kan vi ikke bare lage nye kordinater? :) 
 
 foof = True
 while foof:
-    bite = food.food_element()
+    speed = snake.speed
+    canvas.score_board(score = snake.snake_length-3, level = snake.level, speed=snake.speed)
+    food.food_move()
+    bite_xcor = food.food_coordinates()[0]
+    bite_ycor = food.food_coordinates()[1]
     game_on = True
     while game_on:
         screen.update()
         sleep(0.1)
         snake.snake_head.forward(20)
         snake.snake_move_body()
-        snake.snake_continue()
+        snake.snake_continue(screen_size=canvas_size)
         snake.keys(screen_obj = screen)
-        snake.snake_eat(bite)
+        game_on = snake.snake_eat(food_x=bite_xcor, food_y=bite_ycor)
 
 screen.exitonclick()
+
+# Snake speed + lvl virker ikke...
