@@ -1,0 +1,3 @@
+ingrid;1;1
+ia;2;1
+hello_snake;17;1

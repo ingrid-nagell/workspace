@@ -1,23 +1,21 @@
-txt = "Hello World"
+from tabulate import tabulate
+f = open("python_bootcamp/boot20_snake/highscores.txt", "r")
+users = []
+user = {}
+for line in f:
+    nickname, score, version = line.split(";")
+    user["nickname"] = nickname
+    user["score"] = int(score)
+    user["version"] = str(int(version))
+    u = user.copy()
+    users.append(u)
+f.close()
 
-from time import sleep
+users_sorted = sorted(users, key=lambda i: i['score'], reverse=True)
+top_10 = users_sorted[0:10]
 
-from turtle import Turtle, Screen, exitonclick
+text = "Place\tNickname\tScore\t\tVersion\n------------------------------------------------"
+#for i, e in enumerate(top_10):	
+#	text += f"\n{i+1}\t{e['nickname']}\t\t{e['score']: ^10}\t{e['version']: ^10}"
 
-screen = Screen()
-
-food_object = Turtle(shape="square")
-food_object.setposition(23, 100)
-
-snake_object = Turtle("turtle")
-snake_object.setposition(20, 99)
-
-screen.exitonclick()
-
-
-def food_element(self):
-        '''Returns a turtle object representing a food object.'''
-        self.food_elem = Turtle(shape = "square")
-        self.food_elem.hideturtle()
-        self.food_elem.penup()
-        self.food_elem.color("white")
+print(text)

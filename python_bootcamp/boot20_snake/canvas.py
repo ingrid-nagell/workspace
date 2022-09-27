@@ -37,9 +37,19 @@ class Canvas():
         self.drawing_timmy.goto(-self.screen_size, self.screen_size)
         self.drawing_timmy.penup()
 
-    def score_board(self, score, level, speed):
+    def score_board(self, nickname, score):
+        '''Adds a score overview at the top left corner during game play.'''
         self.writing_timmy.clear()
         self.writing_timmy.setposition(-self.screen_size, self.screen_size)
         self.writing_timmy.pendown()
-        self.writing_timmy.write(f"Score: {score}\nLevel: {level}\tSpeed: {speed}")
+        self.writing_timmy.write(f"Playing as {nickname}\nScore: {score}")
         self.writing_timmy.penup()
+
+    def highscores(self, nickname, score, table):
+        '''Print users final scores and current high scores.'''
+        self.screen.clear()
+        self.screen.screensize(canvwidth=self.screen_size, canvheight=self.screen_size, bg="black")
+        self.writing_timmy.color("white")
+        self.writing_timmy.penup()
+        self.writing_timmy.goto(-200,-200)
+        self.writing_timmy.write(f"Game over!\n\n{nickname}, your score was {score}.\n\n" + table, font=['Verdana', 14, 'normal'])
