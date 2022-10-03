@@ -1,5 +1,4 @@
-from turtle import Turtle, shape
-from random import randint
+from turtle import Turtle
 from time import sleep
 
 class Snake():
@@ -7,12 +6,14 @@ class Snake():
 	def __init__(self, snake_length=3, snake_speed=0.2, difficulty=10):
 		self.speed = snake_speed
 		self.difficulty = difficulty
-		self.x_cor = 0
-		self.y_cor = 0
 		self.snake_length = snake_length
 		self.snake = []
+		self.create_snake(snake_length)
 
-		for i in range(0, self.snake_length):
+	def create_snake(self, length):
+		self.x_cor = 0
+		self.y_cor = 0
+		for i in range(0, length):
 			segment = Turtle(shape="square")
 			segment.hideturtle()
 			segment.penup()

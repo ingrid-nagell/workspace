@@ -1,5 +1,4 @@
-from turtle import Turtle, Screen, color, textinput
-from random import randint, choice
+from turtle import textinput
 from time import sleep
 from snake import Snake
 from food import Food

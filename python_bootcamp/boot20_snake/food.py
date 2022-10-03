@@ -11,7 +11,7 @@ class Food():
         self.food_elem.hideturtle()
         self.food_elem.penup()
         self.food_elem.color("white")
-        self.food_elem.shape("square")
+        self.food_elem.shape("circle")
     
     def food_move(self):
         '''Moves a food object to random coordinates.'''
