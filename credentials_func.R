@@ -41,3 +41,4 @@ getCredentials = function(targetMachine){
 }
 # example use
 credentials <- getCredentials('db2')
+

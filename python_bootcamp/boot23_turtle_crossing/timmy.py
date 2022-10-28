@@ -19,3 +19,20 @@ class Timmy(Turtle):
             return True
         else:
             pass
+    
+    def loosing(self, car_obj):
+        car_y = car_obj.ycor()
+
+        if (self.ycor() >= (car_obj.ycor()-10)) and (self.ycor() >= (car_obj.ycor()-10)):
+            return True
+        else:
+            pass
+
+
+'''
+(0.00,-290.00) (-170.00,140.00)
+
+car 180
+turtle collide {190, 170}
+
+'''

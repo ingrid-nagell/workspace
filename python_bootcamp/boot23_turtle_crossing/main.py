@@ -22,25 +22,24 @@ timmy = Timmy(screen_height)
 screen.listen()
 screen.onkey(timmy.move, "Up")
 
-level = 10
+level = 3
 names = ["car"]*level
 cars = []
 
+for e in names:
+    e = Cars(screen_width, screen_height)
+    cars.append(e)
+    screen.update()
+    # Move every new car 
+    for car in cars:
+        car.move()
+screen.update()
+
+print(timmy.pos(), cars[0].pos())
 
 # Move all cars, one at the time, once all cars are made:
 game_on = True
 while game_on:
-
-    if len(cars) < level:
-        for e in names:
-            e = Cars(screen_width, screen_height)
-            cars.append(e)
-            screen.update()
-            # Move every new car 
-            for car in cars:
-                car.move()
-                sleep(0.1)
-                screen.update()
     for car in cars:
         winning = timmy.winning(finish_line=finish_line_ycor)
         if winning == True:
