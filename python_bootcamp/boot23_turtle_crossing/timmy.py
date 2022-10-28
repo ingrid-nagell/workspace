@@ -21,9 +21,9 @@ class Timmy(Turtle):
             pass
     
     def loosing(self, car_obj):
-        car_y = car_obj.ycor()
+        car_y_min = car_obj.ycor()-10
 
-        if (self.ycor() >= (car_obj.ycor()-10)) and (self.ycor() >= (car_obj.ycor()-10)):
+        if (self.ycor() >= (car_obj.ycor()-10)) and (self.ycor() >= (car_obj.ycor()-10)) and self.distance(car_obj) < 20:
             return True
         else:
             pass

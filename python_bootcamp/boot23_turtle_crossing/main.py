@@ -44,6 +44,8 @@ while game_on:
         winning = timmy.winning(finish_line=finish_line_ycor)
         if winning == True:
             game_on = False
+        if timmy.loosing(car):
+            print("HEY")
         screen.update()
         car.move()
         sleep(0.1)
