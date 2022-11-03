@@ -42,12 +42,12 @@ class Draw(Turtle):
             self.penup()
             self.forward(20)
 
-    def game_over(self, winning, coallision):
+    def game_over(self, status):
         self.home()
-        if winning == True:
+        if status == "winning":
             self.color("green")
             self.write("You Win!", align="center", font=FONT)
-        elif coallision == True:
+        elif status == "lose":
             self.color("red")
             self.write("Game Over!", align="center", font=FONT)
     

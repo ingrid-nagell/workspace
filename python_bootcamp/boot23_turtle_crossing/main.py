@@ -1,3 +1,4 @@
+from telnetlib import STATUS
 from turtle import Screen
 from draw import Draw
 from cars import Cars
@@ -22,7 +23,7 @@ timmy = Timmy(screen_height)
 screen.listen()
 screen.onkey(timmy.move, "Up")
 
-level = 3
+level = 20
 names = ["car"]*level
 cars = []
 
@@ -31,28 +32,29 @@ for e in names:
     cars.append(e)
     screen.update()
     # Move every new car 
-    for car in cars:
+    for car in cars: # Put this in the cars function
         car.move()
 screen.update()
 
 print(timmy.pos(), cars[0].pos())
 
 # Move all cars, one at the time, once all cars are made:
+status = "play"
 game_on = True
 while game_on:
     for car in cars:
-        winning = timmy.winning(finish_line=finish_line_ycor)
-        if winning == True:
+        if timmy.winning(finish_line=finish_line_ycor):
+            status = "winning"
             game_on = False
-        if timmy.loosing(car):
-            print("HEY")
-        screen.update()
+            break
+        elif timmy.loosing(car):
+            status = "lose"
+            game_on = False
+            break
         car.move()
-        sleep(0.1)
+        sleep(0.01)
         screen.update()
 
-# detect coallision with car
-
-draw.game_over(winning=winning, coallision=False)
+draw.game_over(status=status)
 
 screen.exitonclick()
