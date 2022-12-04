@@ -1,7 +1,7 @@
 #AoC Day 1 2022
 
 #my_path = 'input01_test.txt'
-my_path = 'C:/Users/G020772/data/AoC/input01_2022.txt'
+my_path = 'C:/Users/G020772/data/AoC/input01.txt'
 
 #Part I
 calories_data = [line.strip() for line in open(my_path, 'r')]
@@ -12,8 +12,6 @@ for i in calories_data:
     if i != '':
         elf_total += int(i)
     else:
-        #if elf_total > highest_total:
-        #    highest_total = elf_total
         elves_totals.append(elf_total)
         elf_total = 0
 
