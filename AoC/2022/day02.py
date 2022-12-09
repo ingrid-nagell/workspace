@@ -30,7 +30,7 @@ print(score)
 #part2
 score = 0
 for elem in data:
-    # loose:
+    #loose:
     if elem[1] == "X":
         play = [l[1] for l in loosing if elem[0] in l][0]
     #draw:

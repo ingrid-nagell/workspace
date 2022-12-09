@@ -5,6 +5,7 @@ my_path = 'C:/Users/G020772/data/AoC/input01.txt'
 
 #Part I
 calories_data = [line.strip() for line in open(my_path, 'r')]
+
 elf_total = 0
 elves_totals = []
 

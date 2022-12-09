@@ -5,5 +5,5 @@ inner join
 from SYSIBM.SQLTABLES
 where TABLE_SCHEM = 'INFO') 
 as st 
-on sc.TBNAME = st.TABLE_NAME and sc.TBCREATOR = 'G00V'
+on sc.TBNAME = st.TABLE_NAME and sc.TBCREATOR = ''
 order by st.TABLE_NAME, sc.COLNO

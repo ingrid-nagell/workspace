@@ -2,4 +2,4 @@ Select TABSCHEMA , TABNAME , COLNAME , REMARKS
 
 from SYSCAT.COLUMNS
 
-where TABSCHEMA='G00V' and upper(REMARKS) like '%BEGUNSTIGET%'
+where TABSCHEMA='' and upper(REMARKS) like '%BEGUNSTIGET%'
