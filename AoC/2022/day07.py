@@ -47,7 +47,6 @@ for k1, v1 in paths.items():
 print(total_sum)
 
 # part II
-unused_space = 70000000 - max(dir_delete)
-space_needed = 30000000 - unused_space
+space_needed = 30000000 - (70000000 - max(dir_delete))
 large_enough_dir = [x for x in dir_delete if x >= space_needed]
 print(min(large_enough_dir))
