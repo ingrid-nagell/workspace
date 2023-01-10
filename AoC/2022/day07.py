@@ -18,6 +18,8 @@ def navigate_sys(data, path):
             path = path + input + '/'
     return path
 
+# Smoother idea: Instead of using re, use nested list of words pr line and refer to placement in main list.
+
 # Loop through lines:
 path_to_file = ""
 paths = {}

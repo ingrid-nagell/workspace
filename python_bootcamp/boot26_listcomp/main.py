@@ -1,7 +1,12 @@
-# List Comprehension
+# NATO alphabet project
+from pandas import read_csv
 
-#new_list = [new_item for item in list if test]
+df = read_csv("C:\\Users\\G020772\\workspace\\python_bootcamp\\boot26_listcomp\\nato_phonetic_alphabet.csv")
 
-numbers = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
-squared = [n*n for n in numbers]
-print(squared)
+nato = {r.letter:r.code for (i, r) in df.iterrows()}
+
+def convert_letter(user_input):
+    return [nato[letter.upper()] for letter in user_input]
+
+word = input("Type a word:")
+print(convert_letter(word))
