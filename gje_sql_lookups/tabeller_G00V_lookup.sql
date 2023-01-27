@@ -3,7 +3,7 @@ from  SYSIBM.SYSCOLUMNS sc
 inner join  
 (select TABLE_NAME, TABLE_SCHEM 
 from SYSIBM.SQLTABLES
-where TABLE_SCHEM = 'INFO') 
+where TABLE_SCHEM = 'INFO' and lower(REMARKS) like '%part%') 
 as st 
-on sc.TBNAME = st.TABLE_NAME and sc.TBCREATOR = ''
+on sc.TBNAME = st.TABLE_NAME 
 order by st.TABLE_NAME, sc.COLNO
