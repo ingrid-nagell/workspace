@@ -2,11 +2,13 @@ import tkinter as tk
 from tkinter import StringVar, messagebox
 from datetime import datetime
 import csv
+from matplotlib.pyplot import axis
 import pandas as pd
+from tabulate import tabulate
 
 BG_COLOR = "#EBF0FA"
 BUTTON_COLOR = '#BAC3D9'
-PASSORD_PATH = 'C:\\Users\\G020772\\repos\\workspace\\bsf_data_collect_gui\\passord.txt'
+PASSORD_PATH = 'C:\\Users\\G020772\\data\\bsf\\passord.txt'
 TITTEL = "Registrer data"
 FONT_TEXT = ('Trebuchet MS', 10)
 FONT_NOTE = ('Trebuchet MS', 8)
@@ -15,9 +17,8 @@ PATH = 'C:\\Users\\G020772\\data\\bsf\\bsf_tilbudsdata.csv'
 
 ###########################
 '''
-TO DO: når data skrives til .csv, så legges det alltid til en linje. 
+TO DO: Sjekk om data finnes fra før og hvis ja, overskriv
 '''
-
 ###########################
 
 class MainFrame(tk.Tk):
@@ -39,7 +40,6 @@ class MainFrame(tk.Tk):
         self.bruker_id = tk.StringVar()
 
         self.frames = {}
-
         for p in {LoginPage, RegisterPage}:
             page_name = p.__name__
             frame = p(parent = container, controller = self)
@@ -47,11 +47,9 @@ class MainFrame(tk.Tk):
             self.frames[page_name] = frame
         
         self.up_frame('LoginPage')
-        
+
     def up_frame(self, page_name):
         page = self.frames[page_name]
-        if page_name == 'RegisterData':
-            print("HEY")
         page.tkraise()
 
 
@@ -64,7 +62,9 @@ class MainFrame(tk.Tk):
                 passord[user] = [pw, part]
         return passord
     
+
     def check_password(self, user, password):
+        user = user.upper()
         passord = self.get_passwords()
         if user in passord:
             if password == passord[user][0]:
@@ -75,6 +75,7 @@ class MainFrame(tk.Tk):
         else:
             messagebox.showinfo(title=TITTEL, message="Skriv inn gyldig brukernavn.")
 
+
     def save_data(self, mnd, aar, ant):
         global PATH
         passord = self.get_passwords()
@@ -82,7 +83,7 @@ class MainFrame(tk.Tk):
         if mnd != '' and aar != '' and ant != '':
             data_entry = [passord[user][1], user, aar, mnd, ant]
             if messagebox.askokcancel(title=TITTEL, message=f"Ønsker du å registrere følgende data for {user}?\n\nAntall: {ant}\nMåned: {mnd}\nÅr: {aar}"):
-                with open(PATH, 'a') as f:
+                with open(PATH, 'a', newline='') as f:
                     writer = csv.writer(f)
                     writer.writerow(data_entry)
                     # Sjekk om data for mnd + aar finnes fra før
@@ -90,25 +91,26 @@ class MainFrame(tk.Tk):
         else:
             messagebox.showinfo(title=TITTEL, message=f"Data mangler.")
     
+
     def access_data(self):
         global PATH
-        user = self.bruker_id.get()
+        user = self.bruker_id.get().upper()
         try:
             df = pd.read_csv(PATH, header=None).rename(columns = {0:'id', 1:'user', 2:'år', 3:'måned', 4:'antall'})
         except:
-            print('Hay')
+            messagebox.showinfo(title=TITTEL, message="Ingen data er registrert på denne brukeren.")
         else:
             df = df[df['user'] == user]  ##Drop id col, sorter etter år, måned descending
-            print(user)
-            print(df)
-            messagebox.showinfo(title=TITTEL, message=f"{df}")
+            df = df.drop(['id', 'user'], axis=1).reset_index(drop=True)
+            messagebox.showinfo(title=TITTEL, 
+                            message=f"Det er registrert følgende tilbud for {user}:\n\n{tabulate(df, headers='keys', tablefmt='simple', showindex=False)}")
 
 
 class LoginPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, bg=BG_COLOR)
         self.controller = controller
-
+        
         # --- Header msg ---
         title_lbl = tk.Label(self, text=f"Logg inn for å registrere tilbudsdata:", font=FONT_TEXT, bg=BG_COLOR)
         title_lbl.grid(row=0, column=1, columnspan=2, pady=15, padx=20)
@@ -139,6 +141,7 @@ class LoginPage(tk.Frame):
                             font=FONT_NOTE, compound='center', bg=BG_COLOR)
         info_text.grid(row=4, column=1, columnspan=3)
 
+        controller.bind('<Return>', lambda event: login_button.invoke())
 
 
 class RegisterPage(tk.Frame):
