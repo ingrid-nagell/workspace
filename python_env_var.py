@@ -12,9 +12,11 @@ import os
 # for name, value in os.environ.items():
 #     print("{0}: {1}".format(name, value))
 
-# os.environ['BOOT_OWS_API_KEY'] = '75978e3bb10718bc3cdd5c22d31edb5e'
+# os.environ['BOOT_OWS_API_KEY'] = ''
 # api_key = os.getenv('BOOT_OWS_API_KEY')
 # print(api_key)
 
 
 #from decouple import config
+
+

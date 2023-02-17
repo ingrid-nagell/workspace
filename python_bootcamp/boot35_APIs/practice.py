@@ -1,8 +1,15 @@
 import requests
+import os
 
+tokens = {}
+with open('C:\\Users\\G020772\\repos\\secrets.txt', 'r') as f:
+    for l in f:
+        items = l.split(',')
+        key, value = items[0], items[1]
+        tokens[key] = value
 
 def check_for_rainfall():
-    api_key = "75978e3bb10718bc3cdd5c22d31edb5e" #Free tier
+    api_key = tokens['OWS']
     endpoint_hourly = "https://api.openweathermap.org/data/2.5/forecast"
     parameters = {
         "lat": 62.737709,
