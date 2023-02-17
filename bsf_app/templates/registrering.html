@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Registrer tilbud</title>
+    </head>
+    <body>
+        <form action="registrer_tilbud" method="post">
+            {% for message in get_flashed_messages() %}
+                <p> {{message}} </p>
+            {% endfor %}
+            <br>
+            <input type="text" name="tilbud_input">
+            <br>
+            <input type="submit" value="REGISTRER_TILBUD" id="registrer_tilbud">
+        </form>
+    </body>
+</html>

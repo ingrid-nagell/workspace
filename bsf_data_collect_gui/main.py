@@ -23,8 +23,8 @@ TO DO: Sjekk om data finnes fra før og hvis ja, overskriv
 
 class MainFrame(tk.Tk):
     """
-    frame objct holding all the different 
-    pages, control of pages, functions, etc.
+    Klasse som bygger et tkinter Frame objekt, som igjen oppretter alle 
+    sider i applikasjonen, sidekontroller, funksjonalitet, osv.
     """
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -47,6 +47,7 @@ class MainFrame(tk.Tk):
             self.frames[page_name] = frame
         
         self.up_frame('LoginPage')
+
 
     def up_frame(self, page_name):
         page = self.frames[page_name]
@@ -90,7 +91,7 @@ class MainFrame(tk.Tk):
                     # Hvis ja, skal overskrive?
         else:
             messagebox.showinfo(title=TITTEL, message=f"Data mangler.")
-    
+
 
     def access_data(self):
         global PATH
@@ -107,6 +108,9 @@ class MainFrame(tk.Tk):
 
 
 class LoginPage(tk.Frame):
+    '''
+    Klasse som bygger logg inn-siden, hvor brukeren logger inn med forhåndsregistrert brukernavn og passord.
+    '''
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, bg=BG_COLOR)
         self.controller = controller
@@ -145,6 +149,9 @@ class LoginPage(tk.Frame):
 
 
 class RegisterPage(tk.Frame):
+    '''
+    Klasse som bygger registreringssiden, hvor brukeren kan registrere tilbud og se sine lagrede data.
+    '''
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, bg=BG_COLOR)
         self.controller = controller
