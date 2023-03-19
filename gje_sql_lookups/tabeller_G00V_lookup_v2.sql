@@ -1,5 +1,0 @@
-Select TABSCHEMA , TABNAME , COLNAME , REMARKS 
-
-from SYSCAT.COLUMNS
-
-where TABSCHEMA='INFO' and upper(REMARKS) like '%SELGER%'
