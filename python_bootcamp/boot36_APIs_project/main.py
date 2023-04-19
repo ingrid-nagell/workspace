@@ -1,24 +1,72 @@
-STOCK = "TSLA"
+# Get stock prices and news through APIs
+
+import requests
+import datetime as dt
+
+STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
+COMPANY_QUERY = "Tesla"
 
-## STEP 1: Use https://www.alphavantage.co
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
+STOCK_ENDPOINT = "https://www.alphavantage.co/query"
+NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
+STOCK_KEY = "4C9LIES20LWNAEG0"
+NEWS_KEY = "c17e8e173c6b417081b7373b8c04fb3c"
 
-## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number. 
+stock_params = {
+    "function": "TIME_SERIES_DAILY_ADJUSTED",
+    "symbol": STOCK_NAME,
+    "outputsize": "compact",
+    "apikey": STOCK_KEY,
+}
 
+news_params = {
+    "q": COMPANY_QUERY,
+    "apiKey": NEWS_KEY,
+    "language": "en",
+    "sortBy":"publishedAt",
+}
 
-#Optional: Format the SMS message like this: 
-"""
-TSLA: 🔺2%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-or
-"TSLA: 🔻5%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-"""
+# Datetime variables
+yesterday = dt.datetime.now() - dt.timedelta(1)
 
+# yesterday as str
+d_1 = dt.datetime.strftime(yesterday, '%Y-%m-%d')
+
+# Now minus 2 as str, controlling for weekends
+if yesterday.isoweekday()==1:
+    d_2 = dt.datetime.strftime(yesterday - dt.timedelta(3), '%Y-%m-%d')
+elif 1 < yesterday.isoweekday() < 6:
+    d_2 = dt.datetime.strftime(yesterday - dt.timedelta(1), '%Y-%m-%d')
+
+# Get change in stock prize 
+stock_r = requests.get(STOCK_ENDPOINT, params=stock_params)
+stock_data = stock_r.json()
+
+price_d_m1 = float(stock_data['Time Series (Daily)'][d_1]['4. close'])
+price_d_m2 = float(stock_data['Time Series (Daily)'][d_2]['4. close'])
+
+# 3 latest articles mentioning STOCK NAME:
+news_r = requests.get(NEWS_ENDPOINT, params=news_params)
+news_data = news_r.json()["articles"][0:3]
+
+def get_articles(data, stock_name):
+    """Function extractiong latest articles for a given company."""
+    with open(f"articles_{stock_name}", "w") as f:
+        f.write(f"Latest three articles for {stock_name}.\nUpdated: {dt.datetime.now()}.")
+        for n, article in enumerate(data):
+            f.write(f"\n\nArticle number:{n+1}\nPublished ts: {article['publishedAt']}\nMedium: {article['source']['name']}\nTitle: {article['title']}\nURL: {article['url']}")
+
+def check_stock(stock_name, company, new, orig, data):
+    """Function checking change in stock prize and print out latest news if significant change."""
+    diff = round(((new-orig)/orig)*100, 2)
+    diff_abs = abs(diff)
+    if diff_abs > 1:
+        print(f"\n--- Difference in stock price: {diff} ---\n")
+        get_articles(data, stock_name=stock_name)
+        with open(f"articles_{stock_name}", "r") as f:
+            print(f.read())
+    else:
+        print(f"No significant change in stock price for {company}")
+
+check_stock(stock_name = STOCK_NAME, company= COMPANY_NAME, new=price_d_m1, orig=price_d_m2, data=news_data)
