@@ -1,6 +1,5 @@
 import requests
-from datetime import datetime, time
-import os
+from datetime import datetime
 
 #os.environ["NUTRI_APP_ID"] = "11e01bf2"
 # cannot add new vars to os...
