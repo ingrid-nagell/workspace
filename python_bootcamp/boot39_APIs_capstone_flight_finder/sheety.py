@@ -1,7 +1,6 @@
-from xml.etree.ElementInclude import DEFAULT_MAX_INCLUSION_DEPTH
 import requests
 
-VAR_PATH = "C:\\Users\\G020772\\repos\\python_env_vars.txt"
+VAR_PATH = "C:\\Users\\G020772\\repos\\secrets.txt"
 with open(VAR_PATH, "r") as f:
     keys = dict(l.strip().split(": ") for l in f)
 
