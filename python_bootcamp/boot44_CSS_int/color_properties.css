@@ -1,0 +1,22 @@
+/******* COLOR PROPERTIES *******/
+/*
+Named colors: red, blue, cyan
+
+RBG colours: rbg = (93, 56, 145)
+represented by HEX code: 5D3891
+
+colorhunt.co - get professional colorpalette
+
+*/
+
+html{
+    background-color: red;
+}
+
+h1{
+    color: rgb(93, 56, 145);
+}
+
+h1{
+    color: #5D3891;
+}

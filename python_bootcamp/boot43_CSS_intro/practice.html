@@ -1,0 +1,76 @@
+<!-- Inline CSS -->
+
+<html style="background:rgb(239, 162, 204)">
+</html>
+
+<!-- Internal CSS -->
+<html>
+    <head>
+        <style> 
+            html{
+                background-color: green;
+            }
+        </style>
+    </head>
+</html>
+
+<!-- External CSS -->
+<html>
+    <head>
+        <link
+            rel="stylesheet"
+            href="./styles.css"
+        />
+    </head>
+</html>
+
+<!--
+In CSS file:
+html{
+    background: green;
+}
+-->
+<html>
+    <body>
+        <h2> CSS selector - targets a specific type of elements</h2>
+        <ol>
+            <li>element selector</li>
+            <li>class selector (add class keyword to html tag - multiple)</li>
+            <li>id selector (ad id keyword to html tag - unique)</li>
+            <li>attribute selector</li>
+        </ol>
+        <ol>
+            <li>
+                html{<br>
+                    background: green;<br>
+                }
+                <br><br>
+
+                h1{<br>
+                    color: green;<br>
+                }
+            </li>
+            <br>
+
+            <li>
+                .my_class{<br>
+                    color: yellow;<br>
+                }
+            </li>
+            <br>
+
+            <li>
+                #my_id{<br>
+                    color: yellow;<br>
+                }
+            </li>
+            <br>
+            
+            <li>
+                target[attribute="value"]{<br>
+                    color: red;<br>
+                }
+            </li>
+        </ol>
+    </body>
+</html>

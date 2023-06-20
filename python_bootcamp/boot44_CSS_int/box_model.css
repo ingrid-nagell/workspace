@@ -1,0 +1,20 @@
+/******* THE BOX MODEL *******/
+/*
+height
+width
+
+border
+    border: <thickness (px)> <style> <color>;
+        border-width: <top px> <right> <bottom> <>
+    boarder goes outwards, does not change the height/weight of the element
+
+padding
+    pad the size around the original box with content
+
+margin
+    pad the size beween elements from the boarder
+
+Invisible boxes - containers: <div></div> group elements togheter.
+pesticides chome extension to see invisible containers etc.
+*/
+

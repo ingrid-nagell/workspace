@@ -1,4 +1,3 @@
-from telnetlib import STATUS
 from turtle import Screen
 from draw import Draw
 from cars import Cars
