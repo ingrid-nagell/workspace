@@ -1,8 +1,9 @@
-
 import requests
 from bs4 import BeautifulSoup
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+
+# imrpove by creating a project layout
 
 VAR_PATH = "C:\\Users\\G020772\\repos\\secrets.txt"
 with open(VAR_PATH, "r") as f:
@@ -24,24 +25,9 @@ sp = spotipy.Spotify(
     )
 )
 user_id = sp.current_user()["id"]
-print(user_id)
-
-# Spotify api
-SPOTIFY_ENDPOINT = f"https://api.spotify.com/v1/users/{user_id}/playlists"
-
-# params = {
-#     "name": "python_bootcamp_playlist",
-#     "description": f"Top 100 Billboard songs {timetravel_to}",
-#     "public": False
-# }
-
-# requests.post(SPOTIFY_ENDPOINT, data=params,)
-
 
 timetravel_to = "1991-01-03"
-
 billboard_url = "https://www.billboard.com/charts/hot-100/"+timetravel_to
-print(billboard_url)
 
 response = requests.get(billboard_url)
 billboard_top100 = response.text
@@ -61,13 +47,17 @@ print(len(artist_names))
 # artists_and_songs = dict(zip(artist_names, song_names))
 # print(artists_and_songs)
 
+# improve by combining artist and song, instead of year and song?
+# imrpove by looking for a similar song name if song does not exist?
 song_uris = []
 year = timetravel_to.split("-")[0]
 for song in song_names:
     result = sp.search(q=f"track:{song} year:{year}", type="track")
-    print(result)
     try:
         uri = result["tracks"]["items"][0]["uri"]
         song_uris.append(uri)
     except IndexError:
-        print(f"{song} doesn't exist in Spotify. Skipped.")
+        pass
+
+playlist = sp.user_playlist_create(user=user_id, name=f"{timetravel_to} Billboard 100", public=False)
+sp.playlist_add_items(playlist_id=playlist["id"], items=song_uris)

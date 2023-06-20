@@ -1,0 +1,11 @@
+Start ignoring a previoulsy commited file in GIT
+
+Add to gitignore:
+$ echo debug.log >> .gitignore
+
+Remove from commit:
+$ git rm --cached debug.log
+rm 'debug.log'
+
+Commit changes:
+$ git commit -m "Start ignoring debug.log"
