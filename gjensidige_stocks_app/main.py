@@ -11,8 +11,12 @@ COMPANY_QUERY = "Gjensidige AND forsikring"
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
-STOCK_KEY = "4C9LIES20LWNAEG0"
-NEWS_KEY = "c17e8e173c6b417081b7373b8c04fb3c"
+VAR_PATH = "C:\\Users\\G020772\\repos\\secrets.txt"
+with open(VAR_PATH, "r") as f:
+    keys = dict(l.strip().split(": ") for l in f)
+
+STOCK_KEY = keys["STOCK_KEY"]
+NEWS_KEY = keys["NEWS_KEY"]
 
 stock_params = {
     "function": "TIME_SERIES_DAILY_ADJUSTED",
