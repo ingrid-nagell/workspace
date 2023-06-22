@@ -1,11 +1,14 @@
 from datetime import datetime
+from extract_website_content import GetProductInfo
 
-class PriceAlert():
-    def __init__(self, current_price, price_threshold, product, shopping_url):
-        self.current_price = current_price
+class PriceAlert(GetProductInfo):
+    def __init__(self, price_threshold: float, shopping_url: str, headers: dict):
+        super().__init__(url=shopping_url, headers=headers)
         self.price_threshold = price_threshold
-        self.product = product
+        self.product = self.get_product()
+        self.current_price = self.get_price()
         self.shopping_url = shopping_url
+
 
     def check_price(self):
         now = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")

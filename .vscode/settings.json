@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Anaconda\\python.exe",
+    "python.pythonPath": "c:\\Anaconda\\envs\\udemy_python\\python.exe",
     "python.envFile": "${workspaceFolder}\\.databricks\\.databricks.env",
     "databricks.python.envFile": "${workspaceFolder}/.env"
 }
