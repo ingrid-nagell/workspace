@@ -1,0 +1,10 @@
+"""
+Client: The part that faces the user 
+
+Server: Handles the interaction between client and database
+
+Database: Storing information
+
+-----
+
+"""
