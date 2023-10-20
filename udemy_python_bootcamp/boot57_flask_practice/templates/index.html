@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Blog101</title>
+    <title>Guess</title>
 </head>
 <body>
-    <h1>Jinja evaluates python: {{5*3}}</h1>
-    <p>{{5*3}} </p>
-    <p>Or use an imported module to get a random nmbr: {{num}}</p>
+    <p>Type a name in the url-container above. </p>
+<a href="{{ url_for('get_blog', num=3) }}">Go To Blog page</a>
 </body>
 <footer>
     <p>Copyright {{ year }}. Built by me.</p>
