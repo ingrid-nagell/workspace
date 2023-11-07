@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from blog_content import GetBlogPosts
 
 app = Flask(__name__)
@@ -17,10 +17,19 @@ def post(id):
 def about():
     return render_template("about.html")
 
-@app.route('/contact')
+@app.route('/contact', methods=["GET", "POST"])
 def contact():
+    if request.method == "POST": 
+        data = request.form
+        name = data['name']
+        email = data['email']
+        phone = data['phone']
+        message = data['message']
+        print(name,"\n",email,"\n",phone,"\n",message)
+        return render_template("message_successful.html")
     return render_template("contact.html")
 
+    
 if __name__ == "__main__":
     posts = GetBlogPosts()
     app.run(debug=True)
