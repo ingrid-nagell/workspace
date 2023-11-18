@@ -1,0 +1,27 @@
+{% from 'bootstrap4/form.html' import render_form %}
+
+{% extends 'base.html' %}
+
+{% block title %}Add A New Cafe{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+
+      <h1>Add a new cafe into the database</h1>
+
+      {{ render_form(form, novalidate=True) }}
+
+      {% if request_made %}
+        <p style="color: #18bd31;text-align:center;font-weight:bold;">
+          Sucessfully ingested data on {{ form.cafe.data }} to the database.
+        </p>
+      {% endif %}
+	  <p class="space-above"><a href="/cafes">See all cafes</a></p>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,13 +1,13 @@
-<!DOCTYPE HTML>
+{% from 'bootstrap4/form.html' import render_form %}
+{% extends "base.html" %}
 
-<html>
-	<head>
-		<title>Login</title>
-	</head>
-	<body>
-        <div class="container">
+{% block title %}Log in{% endblock %}
+  
+{% block content %}
+<div class="jumbotron">
+	<div class="container">
 		<h1>Login</h1>
-        <!-- This is where our form will go. -->
-        </div>
-	</body>
-</html>
+		{{ render_form(form) }}
+	</div>
+</div>
+{% endblock %}
