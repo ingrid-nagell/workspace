@@ -1,0 +1,24 @@
+{% from 'bootstrap4/form.html' import render_form %}
+
+{% extends 'base.html' %}
+
+{% block title %}Add Movie{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1 class="heading">Search</h1>
+    {{ render_form(form, novalidate=True) }}
+</div>
+<div class="container text-center add">
+    <a href=" {{ url_for('home') }} " class="button"> Home </a>
+</div>
+
+<div class="description"> 
+    {% if search_result %}
+        {% for movie in search_result %}
+        <a href=" {{ url_for('movie', id=movie['id']) }} "> {{ movie["original_title"] }} </a> <br>
+        {% endfor %}
+        <p>Source: </p>
+    {% endif %}
+</div>
+{% endblock %}

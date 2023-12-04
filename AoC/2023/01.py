@@ -1,5 +1,3 @@
-#calibration value can be found by combining the first digit and the last digit (in that order) to form a single two-digit number.
-# a1b2c3d4e5f -> l5
 import re
 from word2number import w2n
 

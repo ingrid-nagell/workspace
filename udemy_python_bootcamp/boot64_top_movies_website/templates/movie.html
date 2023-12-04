@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}My Top 10 Movies{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="heading">{{ movie.title }}</h1>
+    <p class="description">Add this movie to the site?</p>
+
+    <div class="card" >
+      <div class="front" style="background-image: url('{{ img_path }}');">
+      </div>
+      <div class="back">
+        <div>
+      <div class="title"> {{ movie.title }} <span class="release_date">({{ movie.release_date[0:4] }})</span></div>
+          <div class="rating">
+              <label>{{ movie.rating }}</label>
+            <i class="fas fa-star star"></i>
+          </div>
+          <p class="overview">
+              {{ movie.overview }}
+          </p>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container text-center add">
+    <a href=" {{ url_for('add_movie', id=movie.id) }} " class="button">Add movie</a>
+    <a href=" {{ url_for('search') }} " class="button delete-button">Back</a>
+</div>
+
+{% endblock %}

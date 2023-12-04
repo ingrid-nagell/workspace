@@ -5,7 +5,7 @@ import re
 from loguru import logger
 
 
-GITHUB_TOKEN = os.getenv("GITHUB_API_TOKEN")
+GITHUB_TOKEN = os.getenv("GH_TOKEN")
 REPOS_ENDPOINT = f"https://api.github.com/orgs/gjensidige/repos"
 
 
