@@ -1,3 +1,0 @@
-SHIFT + ALT + A == '''text'''
-CTRL (K->C) == # text
-CTRL (K->U)
