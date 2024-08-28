@@ -6,7 +6,8 @@ from loguru import logger
 
 
 GITHUB_TOKEN = os.getenv("GH_TOKEN")
-REPOS_ENDPOINT = f"https://api.github.com/orgs/gjensidige/repos"
+ENDPOINT = os.getenv("GJ_ENDPOINT")
+REPOS_ENDPOINT = f"{ENDPOINT}"
 
 
 headers = {
@@ -32,7 +33,7 @@ def get_all_repos(url, headers: dict) -> list:
 
     while url:
         print(f"Page {pages}")
-        
+
         params = {
             "per_page": 100,
             "page": pages
