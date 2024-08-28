@@ -2,6 +2,8 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlite3 import IntegrityError
 
+APIKEY = "TopSecretAPIKey"
+
 app = Flask(__name__)
 
 # Connect to Database
@@ -97,15 +99,27 @@ def update_price(id):
 
         query = db.session.execute(db.select(Cafe).where(Cafe.id==id).order_by(Cafe.name))
         all_cafes = query.scalars().all()
-        return jsonify(cafes = [cafe.to_dict() for cafe in all_cafes])
-    else:
-        return jsonify(error={"Not Found": "Sorry a cafe with that id was not found in the database."})
+        return jsonify(cafes = [cafe.to_dict() for cafe in all_cafes]), 200
+    
 
-
-@app.errorhandler(404) # Handles error from above (but adjust to adapt to other views)
+@app.errorhandler(404) # Handles error from above (but adjust to adapt to other views?)
 def invalid_route(e):
-    return jsonify(error={'Not found': 'Sorry a cafe with that id was not found in the database.'})
+    return jsonify(error={'Not found': 'Sorry a cafe with that id was not found in the database.'}), 404
 
+@app.route("/delete-cafe/<int:id>", methods=["GET","DELETE"])
+def delete_cafe(id):
+    api_key = request.args.get("api-key")
+
+    if api_key == APIKEY:
+        cafe = db.get_or_404(Cafe, id)
+        if cafe:
+            db.session.delete(cafe)
+            db.session.commit()
+
+        return jsonify(response={"success": "Successfully deleted the cafe from the database."}), 200
+
+    else:
+        return jsonify(error={"error": "Invalid API KEY"}), 403
 
 if __name__ == '__main__':
     app.run(debug=True)

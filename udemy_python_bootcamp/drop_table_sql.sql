@@ -1,0 +1,3 @@
+-- SQLite
+DROP table comments;
+

@@ -3,18 +3,25 @@ from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from forms import SearchMovieForm, EditMovieForm
 from tmdb_api import search_movies_from_tmdb, get_movie_info, get_movie_image
+from flask_ckeditor import CKEditor
 
 
-app = Flask(__name__)
-
-# Config and extensions:
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///top_ten_movies.db"
-
-Bootstrap5(app)
+ckeditor = CKEditor()
 db = SQLAlchemy()
-db.init_app(app)
 
+
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///top_ten_movies.db"
+    ckeditor.init_app(app)
+    db.init_app(app)
+    Bootstrap5(app)
+
+    return app
+
+
+app = create_app()
 
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
